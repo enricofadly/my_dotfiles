@@ -133,9 +133,9 @@ bindkey -M vicmd 'j' history-substring-search-down
 # ----------------------------------------------------------
 alias nano='vim'                       # Alias for nano to vim
 alias transid='trans :id'              # Alias for trans shell translate to indonesia
-alias sleep='systemctl suspend -i'     # Kasih tidur
-alias restart='systemctl reboot -i'    # Kasih restart
-alias shutdown='systemctl poweroff -i' # Kasih mati
+alias sleep='systemctl suspend -i'     # Sleep the pc
+alias restart='systemctl reboot -i'    # Restart the pc 
+alias shutdown='systemctl poweroff -i' # Shutdown the pc
 alias reload='exec zsh'                # Reload zsh
 alias navish='navi --cheatsh'          # Access navi with cheat.sh repos
 alias navitl='navi --tldr'             # Access navi with tldr repos
@@ -165,6 +165,7 @@ source githubs/zsh-you-should-use/you-should-use.plugin.zsh
 
 # Some random configurations
 # ----------------------------------------------------------
+
 # Cheat completion
 fpath=(~/.zsh.d/ $fpath)
 

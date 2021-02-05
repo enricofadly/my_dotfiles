@@ -1,15 +1,10 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 " Plugin will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
 " ----------------------------------------------------------
 
+" Plugin to enhance vim experience
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fzf fuzzy finder
 Plug 'junegunn/vim-easy-align'                      " Align multiple line easier
 Plug 'junegunn/fzf.vim'                             " Fzf integration in vim
@@ -35,6 +30,9 @@ Plug 'easymotion/vim-easymotion'                    " Motion utilities for vim
 Plug 'justinmk/vim-sneak'                           " Sneak 2 characters motion
 Plug 'zhou13/vim-easyescape'                        " Make escape keys easier
 
+" Plugin for programming (linter, formatter, completion, highlighting)
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " ----------------------------------------------------------
@@ -47,6 +45,7 @@ let g:easyescape_timeout = 200
 cnoremap jk <ESC>
 autocmd FileType text,markdown call setbufvar(bufnr("%"), 'easyescape_disable', 1)
 " ----------------------------------------------------------
+
 
 " UI settings
 " ----------------------------------------------------------
@@ -62,13 +61,21 @@ let g:airline_powerline_fonts = 1
 
 " Set settings
 " ----------------------------------------------------------
-set noshowmode                 " Disable statusline below airline
+set nocompatible               " Disable vi compatible mode
 set number relativenumber      " Numberline for vim
 set cursorline                 " Show where my cursor position
 set wildmode=list:longest,full " Idk i just put this shit
 set showcmd                    " Show what command do we type
 set ruler                      " Set ruler option to see where my cursor at
 let g:rainbow_active = 1       " Enable rainbow plugin
+set noswapfile                 " No swapfile
+set mouse=a                    " Enable mouse support
+set t_Co=256                   " Support 256 colors
+set smarttab
+set smartindent
+set autoindent
+set formatoptions-=cro         " Stop newline continution of comments
+set clipboard=unnamedplus      " Copy paste between vim and everything else
 " ----------------------------------------------------------
 
 
@@ -76,7 +83,6 @@ let g:rainbow_active = 1       " Enable rainbow plugin
 " ----------------------------------------------------------
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
-
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 " ----------------------------------------------------------
@@ -123,8 +129,8 @@ autocmd BufWinEnter * silent NERDTreeMirror
 
 " Keybind for nerdtree
 nnoremap <leader>n :NERDTreeFocus<CR>
-" nnoremap <C-n>     :NERDTree<CR>
 nnoremap <C-t>     :NERDTreeToggle<CR>
+" nnoremap <C-n>     :NERDTree<CR>
 " nnoremap <C-f>     :NERDTreeFind<CR>
 " ----------------------------------------------------------
 
@@ -222,6 +228,8 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 " Vim sneak configuration
 let g:sneak#label = 1 " Enable easymotion like label
 
+" map f <Plug>Sneak_s
+" map F <Plug>Sneak_S
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
