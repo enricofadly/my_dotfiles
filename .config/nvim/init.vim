@@ -408,6 +408,7 @@ let g:firenvim_config = {
     \ }
 \ }
 
+" Detect when firenvim connects to Neovim
 function! s:IsFirenvimActive(event) abort
   if !exists('*nvim_get_chan_info')
     return 0
@@ -417,7 +418,14 @@ function! s:IsFirenvimActive(event) abort
       \ l:ui.client.name =~? 'Firenvim'
 endfunction
 
+function! OnUIEnter(event) abort
+  if s:IsFirenvimActive(a:event)
+    set laststatus=0
+  endif
+endfunction
+autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
 
+" Throttle the writes
 let g:dont_write = v:false
 function! My_Write(timer) abort
 	let g:dont_write = v:false
@@ -434,13 +442,6 @@ endfunction
 
 au TextChanged * ++nested call Delay_My_Write()
 au TextChangedI * ++nested call Delay_My_Write()
-
-function! OnUIEnter(event) abort
-  if s:IsFirenvimActive(a:event)
-    set laststatus=0
-  endif
-endfunction
-autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
 " ----------------------------------------------------------
 
 
