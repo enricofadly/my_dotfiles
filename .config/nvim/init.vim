@@ -45,9 +45,26 @@ let g:easyescape_chars = { "j": 1, "k": 1 }
 let g:easyescape_timeout = 200
 cnoremap jk <ESC> 
 
+" Use alt + hjkl to resize windows
+nnoremap <M-j>    :resize -2<CR>
+nnoremap <M-k>    :resize +2<CR>
+nnoremap <M-h>    :vertical resize -2<CR>
+nnoremap <M-l>    :vertical resize +2<CR>
+
 " TAB in general mode will move to text buffer
-nnoremap bn :bnext<CR>
-nnoremap bp :bprevious<CR>
+nnoremap <TAB> :bnext<CR>
+" SHIFT-TAB will go back
+nnoremap <S-TAB> :bprevious<CR>
+
+" Better tabbing
+vnoremap < <gv
+vnoremap > >gv
+
+" Better window navigation
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-l> <C-w>l
 
 " Coc-yank to open the yank list
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
@@ -70,13 +87,15 @@ let g:airline_powerline_fonts = 1
 " Set settings
 " ----------------------------------------------------------
 set number relativenumber      " Numberline for vim
+set splitbelow splitright      " Change default split behavior
 set cursorline                 " Show where my cursor position
 set wildmode=list:longest,full " Idk i just put this shit
 let g:rainbow_active = 1       " Enable rainbow plugin
 set noswapfile                 " No swapfile
 set mouse=a                    " Enable mouse support
 set clipboard=unnamedplus      " Copy paste between vim and everything else
-set nohlsearch		       " Disable highlight search so it doesnt conflict with other search tools
+set nohlsearch                 " Disable highlight search so it doesnt conflict with other search tools
+
 " ----------------------------------------------------------
 
 
