@@ -28,12 +28,27 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}               " Multiple cur
 Plug 'zhou13/vim-easyescape'                                      " Make escape keys easier
 Plug 'dstein64/vim-win'                                           " Vim plugin to manage window easier
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " Embedd neovim on browser text area
+Plug 'voldikss/vim-floaterm' 					  " Terminal manager for neovim
 
 " Plugin for programming (linter, formatter, completion, highlighting)
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+" ----------------------------------------------------------
+
+
+" Set settings
+" ----------------------------------------------------------
+set number relativenumber      " Numberline for vim
+set splitbelow splitright      " Change default split behavior
+set cursorline                 " Show where my cursor position
+set wildmode=list:longest,full " Idk i just put this shit
+let g:rainbow_active = 1       " Enable rainbow plugin
+set noswapfile                 " No swapfile
+set mouse=a                    " Enable mouse support
+set clipboard=unnamedplus      " Copy paste between vim and everything else
+set nohlsearch                 " Disable highlight search so it doesnt conflict with other search tools
 " ----------------------------------------------------------
 
 
@@ -68,6 +83,9 @@ vnoremap > >gv
 " Coc explorer trigger keybindings
 nmap co :CocCommand explorer<CR>
 
+" Coc marketplace trigger keybindings
+nmap cm :CocList marketplace<CR>
+
 " Coc-yank to open the yank list
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 " ----------------------------------------------------------
@@ -86,18 +104,12 @@ let g:airline_powerline_fonts = 1
 " ----------------------------------------------------------
 
 
-" Set settings
+" Floatterm keybind settings
 " ----------------------------------------------------------
-set number relativenumber      " Numberline for vim
-set splitbelow splitright      " Change default split behavior
-set cursorline                 " Show where my cursor position
-set wildmode=list:longest,full " Idk i just put this shit
-let g:rainbow_active = 1       " Enable rainbow plugin
-set noswapfile                 " No swapfile
-set mouse=a                    " Enable mouse support
-set clipboard=unnamedplus      " Copy paste between vim and everything else
-set nohlsearch                 " Disable highlight search so it doesnt conflict with other search tools
-
+let g:floaterm_keymap_new    = '<space>ft'
+let g:floaterm_keymap_prev   = '<space>h'
+let g:floaterm_keymap_next   = '<space>l'
+let g:floaterm_keymap_toggle = '<space>t'
 " ----------------------------------------------------------
 
 
@@ -350,7 +362,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " EasyMotion configuration
 " ----------------------------------------------------------
 " Pre-default easy motion binding
-map <Leader> <Plug>(easymotion-prefix)
+" map <Leader> <Plug>(easymotion-prefix)
 
 " Disable shade when search
 let g:EasyMotion_do_shade = 0
