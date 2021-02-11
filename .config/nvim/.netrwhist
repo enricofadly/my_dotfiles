@@ -1,3 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/enricofadly/.config/alacritty'
+let g:netrw_dirhist_2='/home/enricofadly/githubs/vimtutor'
 let g:netrw_dirhist_1='/home/enricofadly/.config/nvim'

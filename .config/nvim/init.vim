@@ -26,8 +26,8 @@ Plug 'haya14busa/is.vim'                                          " Improved Inc
 Plug 'justinmk/vim-sneak'                                         " Sneak 2 characters motion
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}               " Multiple cursors Plugin for vim/neovim
 Plug 'zhou13/vim-easyescape'                                      " Make escape keys easier
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " Embedd neovim in browser
 Plug 'dstein64/vim-win'                                           " Vim plugin to manage window easier
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " Embedd neovim on browser text area
 
 " Plugin for programming (linter, formatter, completion, highlighting)
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers
@@ -39,11 +39,10 @@ call plug#end()
 
 " Custom keybindings
 " ----------------------------------------------------------
-let g:mapleader = " "
-
 let g:easyescape_chars = { "j": 1, "k": 1 }
 let g:easyescape_timeout = 200
-cnoremap jk <ESC> 
+cnoremap jk <ESC>
+autocmd FileType text,markdown call setbufvar(bufnr("%"), 'easyescape_disable', 1)
 
 " Use alt + hjkl to resize windows
 nnoremap <M-j>    :resize -2<CR>
@@ -65,6 +64,9 @@ vnoremap > >gv
 " nnoremap <C-j> <C-w>j
 " nnoremap <C-k> <C-w>k
 " nnoremap <C-l> <C-w>l
+
+" Coc explorer trigger keybindings
+nmap co :CocCommand explorer<CR>
 
 " Coc-yank to open the yank list
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
@@ -262,12 +264,6 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
-" To get correct comment highlighting for json
-autocmd FileType json syntax match Comment +\/\/.\+$+
-
-" To enable highlight crrent symbol on CursorHold, add:
-autocmd CursorHold * silent call CocActionAsync('highlight')
 " ----------------------------------------------------------
 
 
@@ -299,12 +295,6 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
-" ----------------------------------------------------------
-
-
-" Vim nerdtree plugin configuration
-" ----------------------------------------------------------
-nmap <space>e :CocCommand explorer<CR>
 " ----------------------------------------------------------
 
 
@@ -410,7 +400,32 @@ map T <Plug>Sneak_T
 " ----------------------------------------------------------
 
 
-" Firenvim configuration
+" Vim-win configuration
+" ----------------------------------------------------------
+map <leader>v <plug>WinWin
+
+let g:win_ext_command_map = {
+      \   'c': 'wincmd c',
+      \   'C': 'close!',
+      \   'q': 'quit',
+      \   'Q': 'quit!',
+      \   '!': 'qall!',
+      \   'V': 'wincmd v',
+      \   'S': 'wincmd s',
+      \   'n': 'bnext',
+      \   'N': 'bnext!',
+      \   'p': 'bprevious',
+      \   'P': 'bprevious!',
+      \   "\<c-n>": 'tabnext',
+      \   "\<c-p>": 'tabprevious',
+      \   '=': 'wincmd =',
+      \   't': 'tabnew',
+      \   'x': 'Win#exit'
+      \ }
+" ----------------------------------------------------------
+
+
+" Vim-win configuration
 " ----------------------------------------------------------
 let g:firenvim_config = {
     \ 'globalSettings': {
@@ -421,13 +436,12 @@ let g:firenvim_config = {
             \ 'cmdline': 'neovim',
             \ 'content': 'text',
             \ 'priority': 0,
-            \ 'selector': 'textarea',
+            \ 'selector': 'textarea:not([readonly]), div[role="textbox"]',
             \ 'takeover': 'always',
         \ },
     \ }
 \ }
 
-" Detect when firenvim connects to Neovim
 function! s:IsFirenvimActive(event) abort
   if !exists('*nvim_get_chan_info')
     return 0
@@ -443,48 +457,11 @@ function! OnUIEnter(event) abort
   endif
 endfunction
 autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
-
-" Throttle the writes
-let g:dont_write = v:false
-function! My_Write(timer) abort
-	let g:dont_write = v:false
-	write
-endfunction
-
-function! Delay_My_Write() abort
-	if g:dont_write
-		return
-	end
-	let g:dont_write = v:true
-	call timer_start(10000, 'My_Write')
-endfunction
-
-au TextChanged * ++nested call Delay_My_Write()
-au TextChangedI * ++nested call Delay_My_Write()
 " ----------------------------------------------------------
 
 
-" Vim-win configuration
+" To fix diagnostic clash with coc.nvim
 " ----------------------------------------------------------
-map <leader>v <plug>WinWin
-
-let g:win_ext_command_map = {
-	      \   'c': 'wincmd c',
-	      \   'C': 'close!',
-	      \   'q': 'quit',
-	      \   'Q': 'quit!',
-	      \   '!': 'qall!',
-	      \   'V': 'wincmd v',
-	      \   'S': 'wincmd s',
-	      \   'n': 'bnext',
-	      \   'N': 'bnext!',
-	      \   'p': 'bprevious',
-	      \   'P': 'bprevious!',
-	      \   "\<c-n>": 'tabnext',
-	      \   "\<c-p>": 'tabprevious',
-	      \   '=': 'wincmd =',
-	      \   't': 'tabnew',
-	      \   'x': 'Win#exit'
-	      \ }
+autocmd User EasyMotionPromptBegin silent! CocDisable
+autocmd User EasyMotionPromptEnd silent! CocEnable
 " ----------------------------------------------------------
-
