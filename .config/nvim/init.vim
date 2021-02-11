@@ -364,7 +364,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " EasyMotion configuration
 " ----------------------------------------------------------
 " Pre-default easy motion binding
-" map <Leader> <Plug>(easymotion-prefix)
+map <Leader> <Plug>(easymotion-prefix)
 
 " Disable shade when search
 let g:EasyMotion_do_shade = 0
