@@ -5,30 +5,30 @@ call plug#begin(stdpath('data') . '/plugged')
 " ----------------------------------------------------------
 
 " Plugin to enhance vim experience
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }               " Fzf fuzzy finder
-Plug 'junegunn/vim-easy-align'                                    " Align multiple line easier
-Plug 'junegunn/fzf.vim'                                           " Fzf integration in vim
-Plug 'tpope/vim-sensible'                                         " Sane vim default
-Plug 'tpope/vim-surround'                                         " Surrounding word/WORD easier
-Plug 'tpope/vim-repeat'                                           " Enable to repeat the map keybind
-Plug 'vim-airline/vim-airline'                                    " Plugin for statusline/tabline
-Plug 'vim-airline/vim-airline-themes'                             " Plugin for themes
-Plug 'preservim/nerdcommenter'                                    " Make commenting become easier
-Plug 'luochen1990/rainbow'                                        " Bracket pair colorizer
-Plug 'wellle/targets.vim'                                         " Add various text objects to give you more targets to operate on
-Plug 'dracula/vim', { 'as': 'dracula' }                           " Dracula color scheme
-Plug 'mhinz/vim-startify'                                         " Change default vim startup
-Plug 'ryanoasis/vim-devicons'                                     " Add icon to vim
-Plug 'farmergreg/vim-lastplace'                                   " Intelligently reopen files at your last edit position
-Plug 'Yggdroot/indentLine'                                        " Plugin to display the indention levels with thin vertical lines
-Plug 'easymotion/vim-easymotion'                                  " Motion utilities for vim
-Plug 'haya14busa/is.vim'                                          " Improved Incsearch
-Plug 'justinmk/vim-sneak'                                         " Sneak 2 characters motion
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}               " Multiple cursors Plugin for vim/neovim
-Plug 'zhou13/vim-easyescape'                                      " Make escape keys easier
-Plug 'dstein64/vim-win'                                           " Vim plugin to manage window easier
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " Embedd neovim on browser text area
-Plug 'voldikss/vim-floaterm' 					  " Terminal manager for neovim
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fzf fuzzy finder
+Plug 'junegunn/vim-easy-align'                      " Align multiple line easier
+Plug 'junegunn/fzf.vim'                             " Fzf integration in vim
+Plug 'tpope/vim-sensible'                           " Sane vim default
+Plug 'tpope/vim-surround'                           " Surrounding word/WORD easier
+Plug 'tpope/vim-repeat'                             " Enable to repeat the map keybind
+Plug 'vim-airline/vim-airline'                      " Plugin for statusline/tabline
+Plug 'vim-airline/vim-airline-themes'               " Plugin for themes
+Plug 'preservim/nerdcommenter'                      " Make commenting become easier
+Plug 'luochen1990/rainbow'                          " Bracket pair colorizer
+Plug 'wellle/targets.vim'                           " Add various text objects to give you more targets to operate on
+Plug 'dracula/vim', { 'as': 'dracula' }             " Dracula color scheme
+Plug 'mhinz/vim-startify'                           " Change default vim startup
+Plug 'ryanoasis/vim-devicons'                       " Add icon to vim
+Plug 'farmergreg/vim-lastplace'                     " Intelligently reopen files at your last edit position
+Plug 'Yggdroot/indentLine'                          " Plugin to display the indention levels with thin vertical lines
+Plug 'easymotion/vim-easymotion'                    " Motion utilities for vim
+Plug 'haya14busa/is.vim'                            " Improved Incsearch
+Plug 'justinmk/vim-sneak'                           " Sneak 2 characters motion
+Plug 'mg979/vim-visual-multi', {'branch': 'master'} " Multiple cursors Plugin for vim/neovim
+Plug 'zhou13/vim-easyescape'                        " Make escape keys easier
+Plug 'dstein64/vim-win'                             " Vim plugin to manage window easier
+Plug 'voldikss/vim-floaterm'                        " Terminal manager for neovim
+Plug 'tpope/vim-vinegar'                            " Combine with netrw to create a delicious salad dressing
 
 " Plugin for programming (linter, formatter, completion, highlighting)
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers
@@ -40,7 +40,7 @@ call plug#end()
 
 " Set settings
 " ----------------------------------------------------------
-set number relativenumber      " Numberline for vim
+set relativenumber number      " Numberline for vim
 set splitbelow splitright      " Change default split behavior
 set cursorline                 " Show where my cursor position
 set wildmode=list:longest,full " Idk i just put this shit
@@ -105,12 +105,10 @@ let g:airline_powerline_fonts = 1
 
 
 " Floatterm keybind configuration
-" ----------------------------------------------------------
-let g:floaterm_keymap_new    = '<space>ft'
-let g:floaterm_keymap_prev   = '<space>h'
-let g:floaterm_keymap_next   = '<space>l'
-let g:floaterm_keymap_toggle = '<space>t'
-let g:floaterm_width  = 1.0
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
 " ----------------------------------------------------------
 
 
@@ -118,18 +116,14 @@ let g:floaterm_width  = 1.0
 " ----------------------------------------------------------
 " TextEdit might fail if hidden is not set.
 set hidden
-
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
-
 " Give more space for displaying messages.
 set cmdheight=2
-
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
-
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
@@ -415,7 +409,7 @@ map T <Plug>Sneak_T
 
 " Vim-win configuration
 " ----------------------------------------------------------
-map <leader>v <plug>WinWin
+map <Leader>v <plug>WinWin
 
 let g:win_ext_command_map = {
       \   'c': 'wincmd c',
@@ -438,42 +432,7 @@ let g:win_ext_command_map = {
 " ----------------------------------------------------------
 
 
-" Vim-win configuration
-" ----------------------------------------------------------
-let g:firenvim_config = {
-    \ 'globalSettings': {
-        \ 'alt': 'all',
-    \  },
-    \ 'localSettings': {
-        \ '.*': {
-            \ 'cmdline': 'neovim',
-            \ 'content': 'text',
-            \ 'priority': 0,
-            \ 'selector': 'textarea:not([readonly]), div[role="textbox"]',
-            \ 'takeover': 'always',
-        \ },
-    \ }
-\ }
-
-function! s:IsFirenvimActive(event) abort
-  if !exists('*nvim_get_chan_info')
-    return 0
-  endif
-  let l:ui = nvim_get_chan_info(a:event.chan)
-  return has_key(l:ui, 'client') && has_key(l:ui.client, 'name') &&
-      \ l:ui.client.name =~? 'Firenvim'
-endfunction
-
-function! OnUIEnter(event) abort
-  if s:IsFirenvimActive(a:event)
-    set laststatus=0
-  endif
-endfunction
-autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
-" ----------------------------------------------------------
-
-
-" To fix diagnostic clash with coc.nvim
+" To fix diagnostic clash with coc.nvim and easymotion
 " ----------------------------------------------------------
 autocmd User EasyMotionPromptBegin silent! CocDisable
 autocmd User EasyMotionPromptEnd silent! CocEnable
