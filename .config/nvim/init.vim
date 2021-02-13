@@ -75,6 +75,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Better window navigation
+map <C-w>d :bdelete<CR>
 " nnoremap <C-h> <C-w>h
 " nnoremap <C-j> <C-w>j
 " nnoremap <C-k> <C-w>k
@@ -105,10 +106,13 @@ let g:airline_powerline_fonts = 1
 
 
 " Floatterm keybind configuration
-let g:floaterm_keymap_new    = '<F7>'
-let g:floaterm_keymap_prev   = '<F8>'
-let g:floaterm_keymap_next   = '<F9>'
-let g:floaterm_keymap_toggle = '<F12>'
+let g:floaterm_keymap_toggle = '<F1>'
+let g:floaterm_keymap_next   = '<F2>'
+let g:floaterm_keymap_prev   = '<F3>'
+let g:floaterm_keymap_new    = '<F4>'
+let g:floaterm_keymap_kill   = '<F5>'
+let g:floaterm_width         = 0.9
+let g:floaterm_height        = 0.7
 " ----------------------------------------------------------
 
 
