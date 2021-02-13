@@ -116,6 +116,171 @@ let g:floaterm_height        = 0.7
 " ----------------------------------------------------------
 
 
+" Vim easy align configuration
+" ----------------------------------------------------------
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" ----------------------------------------------------------
+
+
+" Vim nerdcommenter configuration
+" ----------------------------------------------------------
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1 " Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*    /' } }
+"Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
+" ----------------------------------------------------------
+
+
+" Fzf.vim integration
+" ----------------------------------------------------------
+" Keybinding for fzf.vim commands
+" let g:fzf_layout = { 'down': '50%' }
+
+" Replace grep built in to ripgrep
+set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Ripgrep preview window
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+" Fzf preview window
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+ 
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Word completion with custom spec with popup layout option
+" inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
+
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+" ----------------------------------------------------------
+
+
+" EasyMotion configuration
+" ----------------------------------------------------------
+" Pre-default easy motion binding
+map <Leader> <Plug>(easymotion-prefix)
+
+" Disable shade when search
+let g:EasyMotion_do_shade = 0
+
+" Default bindings
+let g:EasyMotion_do_mapping = 1 " Disable default mappings
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Mapping to do 2 character search
+nmap <Leader>s <Plug>(easymotion-s2)
+nmap <Leader>t <Plug>(easymotion-t2)
+
+" " Mapping to do multi char search
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 0
+
+" JK motions: Line motions
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+" ----------------------------------------------------------
+
+
+" Vim sneak configuration
+let g:sneak#label = 1 " Enable easymotion like label
+
+" map f <Plug>Sneak_s
+" map F <Plug>Sneak_S
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+" ----------------------------------------------------------
+
+
+" Vim-win configuration
+" ----------------------------------------------------------
+map <Leader>v <plug>WinWin
+
+let g:win_ext_command_map = {
+      \   'c': 'wincmd c',
+      \   'C': 'close!',
+      \   'q': 'quit',
+      \   'Q': 'quit!',
+      \   '!': 'qall!',
+      \   'V': 'wincmd v',
+      \   'S': 'wincmd s',
+      \   'n': 'bnext',
+      \   'N': 'bnext!',
+      \   'p': 'bprevious',
+      \   'P': 'bprevious!',
+      \   "\<c-n>": 'tabnext',
+      \   "\<c-p>": 'tabprevious',
+      \   '=': 'wincmd =',
+      \   't': 'tabnew',
+      \   'x': 'Win#exit'
+      \ }
+" ----------------------------------------------------------
+
+
+" To fix diagnostic clash with coc.nvim and easymotion
+" ----------------------------------------------------------
+autocmd User EasyMotionPromptBegin silent! CocDisable
+autocmd User EasyMotionPromptEnd silent! CocEnable
+" ----------------------------------------------------------
+
+
 " Coc.nvim configuration settings
 " ----------------------------------------------------------
 " TextEdit might fail if hidden is not set.
@@ -277,167 +442,3 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " ----------------------------------------------------------
 
-
-" Vim easy align configuration
-" ----------------------------------------------------------
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-" ----------------------------------------------------------
-
-
-" Vim nerdcommenter configuration
-" ----------------------------------------------------------
-" Create default mappings
-let g:NERDCreateDefaultMappings = 1 " Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*    /' } }
-"Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-" Enable NERDCommenterToggle to check all selected lines is commented or not
-let g:NERDToggleCheckAllLines = 1
-" ----------------------------------------------------------
-
-
-" Fzf.vim integration
-" ----------------------------------------------------------
-" Keybinding for fzf.vim commands
-" let g:fzf_layout = { 'down': '50%' }
-
-" Replace grep built in to ripgrep
-set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow
-
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-" Ripgrep preview window
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-
-" Fzf preview window
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
-
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" Word completion with custom spec with popup layout option
-" inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
-
-" Enable per-command history
-" - History files will be stored in the specified directory
-" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
-"   'previous-history' instead of 'down' and 'up'.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-" ----------------------------------------------------------
-
-
-" EasyMotion configuration
-" ----------------------------------------------------------
-" Pre-default easy motion binding
-map <Leader> <Plug>(easymotion-prefix)
-
-" Disable shade when search
-let g:EasyMotion_do_shade = 0
-
-" Default bindings
-let g:EasyMotion_do_mapping = 1 " Disable default mappings
-
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-
-" Mapping to do 2 character search
-nmap <Leader>s <Plug>(easymotion-s2)
-nmap <Leader>t <Plug>(easymotion-t2)
-
-" " Mapping to do multi char search
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-
-" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-" Without these mappings, `n` & `N` works fine. (These mappings just provide
-" different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
-
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 0
-
-" JK motions: Line motions
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
-let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-" ----------------------------------------------------------
-
-
-" Vim sneak configuration
-let g:sneak#label = 1 " Enable easymotion like label
-
-" map f <Plug>Sneak_s
-" map F <Plug>Sneak_S
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
-" ----------------------------------------------------------
-
-
-" Vim-win configuration
-" ----------------------------------------------------------
-map <Leader>v <plug>WinWin
-
-let g:win_ext_command_map = {
-      \   'c': 'wincmd c',
-      \   'C': 'close!',
-      \   'q': 'quit',
-      \   'Q': 'quit!',
-      \   '!': 'qall!',
-      \   'V': 'wincmd v',
-      \   'S': 'wincmd s',
-      \   'n': 'bnext',
-      \   'N': 'bnext!',
-      \   'p': 'bprevious',
-      \   'P': 'bprevious!',
-      \   "\<c-n>": 'tabnext',
-      \   "\<c-p>": 'tabprevious',
-      \   '=': 'wincmd =',
-      \   't': 'tabnew',
-      \   'x': 'Win#exit'
-      \ }
-" ----------------------------------------------------------
-
-
-" To fix diagnostic clash with coc.nvim and easymotion
-" ----------------------------------------------------------
-autocmd User EasyMotionPromptBegin silent! CocDisable
-autocmd User EasyMotionPromptEnd silent! CocEnable
-" ----------------------------------------------------------
