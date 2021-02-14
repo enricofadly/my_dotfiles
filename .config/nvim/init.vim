@@ -23,7 +23,6 @@ Plug 'farmergreg/vim-lastplace'                     " Intelligently reopen files
 Plug 'Yggdroot/indentLine'                          " Plugin to display the indention levels with thin vertical lines
 Plug 'easymotion/vim-easymotion'                    " Motion utilities for vim
 Plug 'haya14busa/is.vim'                            " Improved Incsearch
-Plug 'justinmk/vim-sneak'                           " Sneak 2 characters motion
 Plug 'mg979/vim-visual-multi', {'branch': 'master'} " Multiple cursors Plugin for vim/neovim
 Plug 'zhou13/vim-easyescape'                        " Make escape keys easier
 Plug 'dstein64/vim-win'                             " Vim plugin to manage window easier
@@ -179,7 +178,7 @@ command! -bang -nargs=? -complete=dir Files
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
- 
+
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -207,13 +206,17 @@ let g:EasyMotion_do_shade = 0
 " Default bindings
 let g:EasyMotion_do_mapping = 1 " Disable default mappings
 
+" 2 char search
+nmap s <Plug>(easymotion-overwin-f2)
+nmap t <Plug>(easymotion-t2)
+
 " Move to line
 map <Leader>L <Plug>(easymotion-bd-jk)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
 
-" Mapping to do 2 character search
-nmap <Leader>s <Plug>(easymotion-s2)
-nmap <Leader>t <Plug>(easymotion-t2)
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " " Mapping to do multi char search
 map  / <Plug>(easymotion-sn)
@@ -234,18 +237,6 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-" ----------------------------------------------------------
-
-
-" Vim sneak configuration
-let g:sneak#label = 1 " Enable easymotion like label
-
-" map f <Plug>Sneak_s
-" map F <Plug>Sneak_S
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
 " ----------------------------------------------------------
 
 
@@ -279,7 +270,6 @@ let g:win_ext_command_map = {
 autocmd User EasyMotionPromptBegin silent! CocDisable
 autocmd User EasyMotionPromptEnd silent! CocEnable
 " ----------------------------------------------------------
-
 
 " Coc.nvim configuration settings
 " ----------------------------------------------------------
