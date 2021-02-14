@@ -198,27 +198,38 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " EasyMotion configuration
 " ----------------------------------------------------------
 " Pre-default easy motion binding
-map <Leader> <Plug>(easymotion-prefix)
+" map <Leader> <Plug>(easymotion-prefix)
 
 " Disable shade when search
 let g:EasyMotion_do_shade = 0
 
 " Default bindings
-let g:EasyMotion_do_mapping = 1 " Disable default mappings
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " 2 char search
+map s <Plug>(easymotion-bd-f2)
 nmap s <Plug>(easymotion-overwin-f2)
-nmap t <Plug>(easymotion-t2)
+
+" Before the matching search
+map t <Plug>(easymotion-bd-t)
+
+" 1 char search
+map f <Plug>(easymotion-bd-f)
+nmap f <Plug>(easymotion-overwin-f)
 
 " Move to line
 map <Leader>L <Plug>(easymotion-bd-jk)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
 
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+" Move to begnning of word
+" map  <Leader>w <Plug>(easymotion-bd-w)
+" map <Leader>W <Plug>(easymotion-bd-W)
 
-" " Mapping to do multi char search
+" Move to end of word
+" map <Leader>e <Plug>(easymotion-bd-e)
+" map <Leader>E <Plug>(easymotion-bd-E)
+
+" Mapping to do multi char search
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
