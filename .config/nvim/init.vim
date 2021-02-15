@@ -80,14 +80,6 @@ map <C-w>d :bdelete<CR>
 " nnoremap <C-k> <C-w>k
 " nnoremap <C-l> <C-w>l
 
-" Coc explorer trigger keybindings
-nmap co :CocCommand explorer<CR>
-
-" Coc marketplace trigger keybindings
-nmap cm :CocList marketplace<CR>
-
-" Coc-yank to open the yank list
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 " ----------------------------------------------------------
 
 
@@ -441,5 +433,13 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" Coc.nvim extension keybindings
+" Coc-yank to open the yank list
+nnoremap <silent><nowait> <space>y  :<C-u>CocList -A --normal yank<cr>
+" Coc explorer trigger keybindings
+nnoremap <silent><nowait>;e :CocCommand explorer<CR>
+" Coc marketplace trigger keybindings
+nnoremap <silent><nowait>;m :CocList marketplace<CR>
 " ----------------------------------------------------------
 
