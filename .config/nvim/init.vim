@@ -8,6 +8,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fzf fuzzy finder
 Plug 'junegunn/vim-easy-align'                      " Align multiple line easier
 Plug 'junegunn/fzf.vim'                             " Fzf integration in vim
+Plug 'junegunn/vim-peekaboo'                        " Show the register content
 Plug 'tpope/vim-sensible'                           " Sane vim default
 Plug 'tpope/vim-surround'                           " Surrounding word/WORD easier
 Plug 'tpope/vim-repeat'                             " Enable to repeat the map keybind
@@ -94,6 +95,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1
 " ----------------------------------------------------------
+
+
+let g:peekaboo_window = 'vert bo 50new'
 
 
 " Floatterm keybind configuration
