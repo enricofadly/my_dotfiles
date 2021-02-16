@@ -29,6 +29,8 @@ Plug 'zhou13/vim-easyescape'                        " Make escape keys easier
 Plug 'dstein64/vim-win'                             " Vim plugin to manage window easier
 Plug 'voldikss/vim-floaterm'                        " Terminal manager for neovim
 Plug 'tpope/vim-vinegar'                            " Combine with netrw to create a delicious salad dressing
+Plug 'kshenoy/vim-signature'                        " Plugin to toogle, display and navigate marks
+Plug 'simnalamburt/vim-mundo'                       " Vim undo tree visualizer
 
 " Plugin for programming (linter, formatter, completion, highlighting)
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers
@@ -40,15 +42,20 @@ call plug#end()
 
 " Set settings
 " ----------------------------------------------------------
-set relativenumber number      " Numberline for vim
-set splitbelow splitright      " Change default split behavior
-set cursorline                 " Show where my cursor position
-set wildmode=list:longest,full " Idk i just put this shit
-let g:rainbow_active = 1       " Enable rainbow plugin
-set noswapfile                 " No swapfile
-set mouse=a                    " Enable mouse support
-set clipboard=unnamedplus      " Copy paste between vim and everything else
-set nohlsearch                 " Disable highlight search so it doesnt conflict with other search tools
+set relativenumber number               " Numberline for vim
+set splitbelow splitright               " Change default split behavior
+set cursorline                          " Show where my cursor position
+set wildmode=list:longest,full          " Idk i just put this shit
+let g:rainbow_active = 1                " Enable rainbow plugin
+set noswapfile                          " No swapfile
+set mouse=a                             " Enable mouse support
+set clipboard=unnamedplus               " Copy paste between vim and everything else
+set nohlsearch                          " Disable highlight search so it doesnt conflict with other search tools
+set smartindent
+set expandtab
+let g:peekaboo_window = 'vert bo 80new' " Peekaboo winodw preview size
+set undofile                            " Enable persistent undo so that undo history persists across vim sessions
+set undodir=~/.vim/undo                 " Undo directory
 " ----------------------------------------------------------
 
 
@@ -95,9 +102,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1
 " ----------------------------------------------------------
-
-
-let g:peekaboo_window = 'vert bo 50new'
 
 
 " Floatterm keybind configuration
