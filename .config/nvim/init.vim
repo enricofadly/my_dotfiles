@@ -87,7 +87,16 @@ map <C-w>d :bdelete<CR>
 " nnoremap <C-j> <C-w>j
 " nnoremap <C-k> <C-w>k
 " nnoremap <C-l> <C-w>l
+" ----------------------------------------------------------
 
+
+" Mundo configuration
+" ----------------------------------------------------------
+"  Keybind to triggle mundo preview window
+nnoremap ;u :MundoToggle<CR>
+
+let g:mundo_width = 80
+let g:mundo_right = 1
 " ----------------------------------------------------------
 
 
@@ -105,6 +114,7 @@ let g:airline_powerline_fonts = 1
 
 
 " Floatterm keybind configuration
+ " ----------------------------------------------------------
 let g:floaterm_keymap_toggle = '<F1>'
 let g:floaterm_keymap_next   = '<F2>'
 let g:floaterm_keymap_prev   = '<F3>'
