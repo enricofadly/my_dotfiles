@@ -53,9 +53,9 @@ set clipboard=unnamedplus               " Copy paste between vim and everything 
 set nohlsearch                          " Disable highlight search so it doesnt conflict with other search tools
 set smartindent
 set expandtab
-let g:peekaboo_window = 'vert bo 80new' " Peekaboo winodw preview size
+let g:peekaboo_window = 'vert bo 90new' " Peekaboo winodw preview size
 set undofile                            " Enable persistent undo so that undo history persists across vim sessions
-set undodir=~/.vim/undo                 " Undo directory
+set undodir=~/.config/nvim/undo_dir     " Undo directory
 " ----------------------------------------------------------
 
 
@@ -95,7 +95,7 @@ map <C-w>d :bdelete<CR>
 "  Keybind to triggle mundo preview window
 nnoremap ;u :MundoToggle<CR>
 
-let g:mundo_width = 80
+let g:mundo_width = 90
 let g:mundo_right = 1
 " ----------------------------------------------------------
 
@@ -459,5 +459,12 @@ nnoremap <silent><nowait> <space>y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent><nowait>;e :CocCommand explorer<CR>
 " Coc marketplace trigger keybindings
 nnoremap <silent><nowait>;m :CocList marketplace<CR>
+
+" Coc.nvim multicursor support
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+nmap <silent> <C-d> <Plug>(coc-cursors-word)
+xmap <silent> <C-d> <Plug>(coc-cursors-range)
+" use normal command like `<leader>xi(`
+nmap <leader>x  <Plug>(coc-cursors-operator)
 " ----------------------------------------------------------
 
