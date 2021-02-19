@@ -31,6 +31,7 @@ Plug 'voldikss/vim-floaterm'                        " Terminal manager for neovi
 Plug 'tpope/vim-vinegar'                            " Combine with netrw to create a delicious salad dressing
 Plug 'kshenoy/vim-signature'                        " Plugin to toogle, display and navigate marks
 Plug 'simnalamburt/vim-mundo'                       " Vim undo tree visualizer
+Plug 'brooth/far.vim'                               " Find and replace vim plugin
 
 " Plugin for programming (linter, formatter, completion, highlighting)
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers
@@ -56,6 +57,7 @@ set expandtab
 let g:peekaboo_window = 'vert bo 90new' " Peekaboo winodw preview size
 set undofile                            " Enable persistent undo so that undo history persists across vim sessions
 set undodir=~/.config/nvim/undo_dir     " Undo directory
+set smartcase
 " ----------------------------------------------------------
 
 
@@ -217,8 +219,8 @@ let g:EasyMotion_do_shade = 0
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " 2 char search
-map s <Plug>(easymotion-bd-f2)
-nmap s <Plug>(easymotion-overwin-f2)
+map F <Plug>(easymotion-bd-f2)
+nmap F <Plug>(easymotion-overwin-f2)
 
 " Before the matching search
 map t <Plug>(easymotion-bd-t)
@@ -459,12 +461,7 @@ nnoremap <silent><nowait> <space>y  :<C-u>CocList -A --normal yank<cr>
 nnoremap <silent><nowait>;e :CocCommand explorer<CR>
 " Coc marketplace trigger keybindings
 nnoremap <silent><nowait>;m :CocList marketplace<CR>
-
-" Coc.nvim multicursor support
-nmap <silent> <C-c> <Plug>(coc-cursors-position)
-nmap <silent> <C-d> <Plug>(coc-cursors-word)
-xmap <silent> <C-d> <Plug>(coc-cursors-range)
-" use normal command like `<leader>xi(`
-nmap <leader>x  <Plug>(coc-cursors-operator)
 " ----------------------------------------------------------
 
+" Disable automatic comment_insertion
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
