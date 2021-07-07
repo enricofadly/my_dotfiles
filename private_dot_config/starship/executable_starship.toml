@@ -1,0 +1,28 @@
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[✗](bold red) "
+
+# [status]
+# style = "bg:red"
+# symbol = "✖ "
+# format = '[\[$symbol$status\]]($style) '
+# disabled = false
+#
+# [username]
+# style_user = "yellow bold"
+# style_root = "red bold"
+# format = "user: [$user]($style) "
+# disabled = false
+# show_always = true
+
+[golang]
+symbol = " "
+
+[package]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[python]
+symbol = " "
